@@ -7,7 +7,7 @@ import Home from './pages/Home.jsx'
 import App from './App.jsx'
 import './index.css'
 import Recommendations from './pages/Recommendations.jsx'
-
+import Result from './pages/Result.jsx'
 const router = createBrowserRouter([
   {
     path: "/",
@@ -20,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: "recommendations",
         element:<Recommendations/>
+      },{
+        path:"Result",
+        element:<Result />
+
       }
     ]
 

@@ -9,7 +9,7 @@ import {Link} from 'react-router-dom'
 
 
 function Home() {
-
+ const Navigate = useNavigate();
 
   const [capturedImage, setCapturedImage] = useState(null); // To store the captured image URL
   const videoRef = useRef(null);  // Ref to access the video element
@@ -30,20 +30,42 @@ function Home() {
     }
   };
 
-
-
   const captureImage = () => {
     const canvas = canvasRef.current;
     const video = videoRef.current;
+  
+    // Adjust the canvas dimensions to match the video element
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+  
     const context = canvas.getContext('2d');
-
+  
     // Draw the current video frame on the canvas
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
+  
     // Convert the canvas to a data URL (base64 image format)
     const imageUrl = canvas.toDataURL('image/png');
-    setCapturedImage(imageUrl); // Store the captured image URL // Store the captured image URL
+    setCapturedImage(imageUrl); // Store the captured image URL
+    console.log(imageUrl);
+  
+    Navigate('/Result/', { state: { imageUrl } });
   };
+
+  // const captureImage = () => {
+   
+  //   const canvas = canvasRef.current;
+  //   const video = videoRef.current;
+  //   const context = canvas.getContext('2d');
+
+  //   // Draw the current video frame on the canvas
+  //   context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+  //   // Convert the canvas to a data URL (base64 image format)
+  //   const imageUrl = canvas.toDataURL('image/png');
+  //   setCapturedImage(imageUrl); // Store the captured image URL // Store the captured image URL
+  //   console.log(imageUrl);
+  //   Navigate('/Result/',{state:{imageUrl}});
+  // };
 
   const toggleCamera = () => {
     setFacingMode((prevMode) => (prevMode === 'user' ? 'environment' : 'user'));
