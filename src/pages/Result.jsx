@@ -78,14 +78,15 @@ const Result = () => {
   useEffect(() => {
     const fetchGenerativeText = async () => {
       try {
-        const genAI = new GoogleGenerativeAI('AIzaSyAScVcH2iUVL_iBv3dnfz1MKK6XPvYYNmA'); // Replace with your actual API key
+        const genAI = new GoogleGenerativeAI('AIzaSyC4Mw53_elDkmbno7TLKHtYo_em-EtdsiM'); 
+        // const genAI = new GoogleGenerativeAI('AIzaSyDxHrhj78beaHvZSu19TVQ_eNxj1cVxFcI')// Replace with your actual API key
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
         // Convert image to base64 format
         const base64Image = await imageToBase64(imageUrl);
 
         // Create the prompt and image part
-        const prompt = "WHat is this Image..";
+        const prompt = "which place is this , tell me about the overall history about this place , mention some important dates according to history of it .";
         const imagePart = {
           inlineData: {
             data: base64Image,

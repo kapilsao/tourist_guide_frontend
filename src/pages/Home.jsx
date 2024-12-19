@@ -18,10 +18,17 @@ function Home() {
   const [cameraActive, setCameraActive] = useState(false); // State to check if camera is active
 
 
-  const startCamera = async () => {
+  const startCamera = async (mode = facingMode) => {
+    // Stop any existing streams before starting a new one
+    if (videoRef.current && videoRef.current.srcObject) {
+      let stream = videoRef.current.srcObject;
+      const tracks = stream.getTracks();
+      tracks.forEach(track => track.stop());
+    }
+  
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode }, // Toggle between 'user' (front) and 'environment' (back) camera
+        video: { facingMode: mode }, // Set the facing mode here
       });
       videoRef.current.srcObject = stream;
       setCameraActive(true); // Set camera as active
@@ -68,8 +75,11 @@ function Home() {
   // };
 
   const toggleCamera = () => {
-    setFacingMode((prevMode) => (prevMode === 'user' ? 'environment' : 'user'));
-    startCamera(); // Restart camera with new facing mode
+    const newFacingMode = facingMode === 'user' ? 'environment' : 'user';
+    setFacingMode(newFacingMode); // Toggle facing mode
+    console.log(newFacingMode);
+    
+    startCamera(newFacingMode); // Restart camera with the new mode
   };
 
   return (
@@ -107,9 +117,9 @@ function Home() {
       </svg>
     </div>
   </div>
-  <h5 className="mb-2 text-xl md:text-2xl font-semibold tracking-tight">Destinations</h5> {/* Responsive text size */}
-  <p className="mb-4 text-sm md:text-base text-[#e0f2fe]">Explore the best destinations around the world.</p> {/* Responsive text size */}
-  <a href="#" className="inline-flex items-center text-white font-medium hover:underline underline-offset-4">
+  <h5 className="mb-2 text-xl md:text-2xl font-semibold tracking-tight">Blog</h5> {/* Responsive text size */}
+  <p className="mb-4 text-sm md:text-base text-[#e0f2fe]">Write the blog about  best destinations around the world.</p> {/* Responsive text size */}
+  <a href="/Blog" className="inline-flex items-center text-white font-medium hover:underline underline-offset-4">
     Discover More
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4 ml-2">
       <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -128,7 +138,7 @@ function Home() {
   </div>
   <h5 className="mb-2 text-xl md:text-2xl font-semibold tracking-tight">Recommendations</h5> {/* Responsive text size */}
   <p className="mb-4 text-sm md:text-base text-[#1e3a8a]">Get expert recommendations for your next trip.</p> {/* Responsive text size */}
-  <a href="#" className="inline-flex items-center text-[#1e3a8a] font-medium hover:underline underline-offset-4">
+  <a href="/recommendations" className="inline-flex items-center text-[#1e3a8a] font-medium hover:underline underline-offset-4">
     View Recommendations
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4 ml-2">
       <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -152,7 +162,7 @@ function Home() {
         <div className="bg-white p-6 rounded-lg shadow-md flex items-center">
           <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mr-4">
             {/* Placeholder for image */}
-            <img src="https://via.placeholder.com/50" alt="Eiffel Tower" className="w-12 h-12" />
+            <img src="architecture-building-capital-149419.jpg" alt="Eiffel Tower" className="w-12 h-12" />
           </div>
           <div>
             <h4 className="text-lg font-semibold">Eiffel Tower, Paris</h4>
@@ -164,7 +174,7 @@ function Home() {
         <div className="bg-white p-6 rounded-lg shadow-md flex items-center">
           <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mr-4">
             {/* Placeholder for image */}
-            <img src="https://via.placeholder.com/50" alt="Machu Picchu" className="w-12 h-12" />
+            <img src="macchu-picchu.jpg" alt="Machu Picchu" className="w-12 h-12" />
           </div>
           <div>
             <h4 className="text-lg font-semibold">Machu Picchu, Peru</h4>
@@ -176,7 +186,7 @@ function Home() {
         <div className="bg-white p-6 rounded-lg shadow-md flex items-center">
           <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mr-4">
             {/* Placeholder for image */}
-            <img src="https://via.placeholder.com/50" alt="Great Barrier Reef" className="w-12 h-12" />
+            <img src="great-reef.jpg" alt="Great Barrier Reef" className="w-12 h-12" />
           </div>
           <div>
             <h4 className="text-lg font-semibold">Great Barrier Reef, Australia</h4>
