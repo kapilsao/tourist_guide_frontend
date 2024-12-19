@@ -370,4 +370,4 @@ export default Maps;
 // git commit -m "first commit"
 // git branch -M main
 // git remote add origin https://github.com/kapilsao/tourist_guide_frontend.git
-// git push -u origin main
+// git remote add origin https://github.com/kapilsao/tourist_guide_frontend.git
